@@ -3,15 +3,6 @@ from bs4 import BeautifulSoup
 
 
 def ekstraksi_data(content=None):
-    """
-    tanggal:26 Oktober 2022
-    waktu: 08:34:01 WIB
-    magnitudo: 2.8
-    kedalaman: 10 km
-    lokasi: LS= 7.27 - BT= 107.69
-    Pusat gempa: berada di darat 23 km Barat Daya Kab. Garut
-    Dirasakan:  (Skala MMI): II Cibereum, II Pengalengan, II Kertasari, II Pasirwangi, II Darajat
-    """
 
     content = requests.get('https://www.bmkg.go.id/')
     if content.status_code == 200:
