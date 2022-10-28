@@ -9,7 +9,6 @@ def ekstraksi_data(content=None):
         soup = BeautifulSoup(content.text, 'html.parser')
         title = soup.find('title')
         print(title.text)
-
         result = soup.find('div', {'class': 'col-md-6 col-xs-6 gempabumi-detail no-padding'})
         result = result.findChildren('li')
 
