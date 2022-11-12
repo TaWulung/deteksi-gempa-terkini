@@ -2,32 +2,32 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def ekstraksi_data(content=None):
+def ekstraksi_data():
+    try:
+        content = requests.get('https://www.bmkg.go.id/')
+    except Exception:
+        return None
 
-    content = requests.get('https://www.bmkg.go.id/')
     if content.status_code == 200:
         soup = BeautifulSoup(content.text, 'html.parser')
         title = soup.find('title')
-        print(title.text)
+        print(title.string)
         result = soup.find('div', {'class': 'col-md-6 col-xs-6 gempabumi-detail no-padding'})
         result = result.findChildren('li')
 
+        x = 0
         tanggal = None
         waktu = None
         magnitudo = None
         ls = None
         bt = None
         kedalaman = None
-        koordinat = None
         lokasi = None
         dirasakan = None
 
-        x = 0
         for res in result:
-            print(x, res)
-
             if x == 0:
-                waktu  = res.text.split(',')
+                waktu = res.text.split(',')
                 tanggal = waktu[0]
                 waktu = waktu[1]
             elif x == 1:
@@ -57,6 +57,9 @@ def ekstraksi_data(content=None):
 
 
 def tampilkan_data(result):
+    if result is None:
+        print("Tidak Bisa Menampilkan Data")
+        return
     print('Gempa terakhir berdasarkan BMKG')
     print(f"Tanggal {result['Tanggal']}")
     print(f"Waktu {result['Waktu']}")
